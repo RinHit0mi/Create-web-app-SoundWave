@@ -2,10 +2,7 @@ const CACHE_NAME = "music-app-v1";
 
 // файлы, которые кешируем сразу
 const urlsToCache = [
-  "/",
   "index.html",
-  "styles.css",
-  "script.js",
   "manifest.json",
   "icon.png"
 ];
