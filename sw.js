@@ -3,11 +3,11 @@ const CACHE_NAME = "music-app-v1";
 // файлы, которые кешируем сразу
 const urlsToCache = [
   "/",
-  "/index.html",
-  "/styles.css",
-  "/script.js",
-  "/manifest.json",
-  "/icon.png"
+  "index.html",
+  "styles.css",
+  "script.js",
+  "manifest.json",
+  "icon.png"
 ];
 
 // 📦 INSTALL — кешируем всё
@@ -69,7 +69,7 @@ self.addEventListener("fetch", (event) => {
         .catch(() => {
           // оффлайн fallback
           if (event.request.mode === "navigate") {
-            return caches.match("/index.html");
+            return caches.match("index.html");
           }
         });
 
