@@ -11,6 +11,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <link rel="manifest" href="manifest.json">
+    
     <style>
         :root {
             --bg-primary: #000000;
@@ -2083,6 +2085,10 @@
                             <div class="theme-name">Фиолетовая</div>
                         </div>
                     </div>
+                    
+                    <div class="settings-item">
+    <button id="installBtn" hidden>Установить приложение</button>
+</div>
 
                     <h3 style="margin: 36px 0 20px; font-size: 14px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700;">Обои</h3>
                     <div class="settings-group">
@@ -2685,6 +2691,40 @@
                 prevTrack();
             }
         });
+        
+        // 📲 PWA установка
+let deferredPrompt = null;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    console.log('PWA install available');
+
+    e.preventDefault();
+    deferredPrompt = e;
+
+    const btn = document.getElementById('installBtn');
+    if (btn) btn.style.display = 'block';
+});
+
+document.getElementById('installBtn')?.addEventListener('click', async () => {
+    if (!deferredPrompt) {
+        alert('Установка пока недоступна');
+        return;
+    }
+
+    deferredPrompt.prompt();
+
+    const result = await deferredPrompt.userChoice;
+    console.log(result);
+
+    deferredPrompt = null;
+});
+
+
+// ⚙️ SERVICE WORKER
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js');
+}
+
     </script>
 </body>
 </html>
